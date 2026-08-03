@@ -505,7 +505,7 @@ h6 {
    - Use a more focused background-position for portrait screens
    - Disable fixed attachment on mobile (performance and compatibility)
    - Scale down heading sizes and reduce hero height so important content remains visible
-*/
+ */
 
 @media (max-width: 900px) {
     .hero {
@@ -561,4 +561,153 @@ h6 {
     .pre-title {
         font-size: 1rem;
     }
+}
+
+/* =========================================
+   RSVP Section (added)
+   ========================================= */
+.rsvp-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.rsvp-content {
+    padding: 60px;
+    text-align: center;
+}
+
+.rsvp-form {
+    text-align: left;
+    margin-top: 40px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: #fcfcfc;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.radio-label input {
+    margin-right: 10px;
+    accent-color: var(--primary-color);
+}
+
+.form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: 500;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Make sure RSVP looks the same on mobile as desktop */
+@media (max-width: 768px) {
+    .rsvp-content {
+        padding: 30px 20px;
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Ensure the RSVP wrapper has full width with comfortable padding on small screens */
+    .rsvp-wrapper {
+        margin: 20px;
+        border-radius: 12px;
+    }
+
+    .rsvp-form {
+        margin-top: 30px;
+    }
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+.footer {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    padding: 60px 0 30px;
+}
+
+.footer h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.footer p {
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+/* =========================================
+   Animations
+   ========================================= */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }

@@ -1,4 +1,4 @@
-// Replace your existing script.js with this file (keeps navbar, countdown, animations and uses a dummy RSVP flow for demo)
+// Replace your existing script.js with this file (keeps navbar, countdown, animations and uses a minimal RSVP flow showing a simple thank-you message)
 document.addEventListener('DOMContentLoaded', () => {
     // --- Navbar Scroll Effect ---
     const navbar = document.getElementById('navbar');
@@ -74,19 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, appearOptions);
     faders.forEach(fader => appearOnScroll.observe(fader));
 
-    // --- Helper: escape HTML for safe insertion ---
-    function escapeHtml(str) {
-        return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-    }
-
-    // --- RSVP Form Handling (Dummy / client-only) ---
-    // The form behaves like it's sending (disabled, "Sending..."), then shows a success message.
-    // No external services or emails are used — suitable for demo or offline previews.
+    // --- RSVP Form Handling (Minimal thank-you message) ---
+    // On submit the form is hidden and a simple thank you message is shown: "Thank you for your response"
     const rsvpForm = document.getElementById('rsvp-form');
     const formMessage = document.getElementById('form-message');
 
@@ -94,15 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
         rsvpForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Get form fields
+            // Basic validation (name/email required to proceed)
             const name = (document.getElementById('name') || {}).value || '';
             const email = (document.getElementById('email') || {}).value || '';
-            const guests = (document.getElementById('guests') || {}).value || '';
-            const message = (document.getElementById('message') || {}).value || '';
-            const attendingRadio = rsvpForm.querySelector('input[name="attending"]:checked');
-            const attending = attendingRadio ? attendingRadio.value : '';
 
-            // Basic validation
             if (!name.trim()) {
                 alert('Please enter your full name.');
                 return;
@@ -112,35 +96,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Disable submit button to prevent duplicates and show progress
+            // Disable submit button to give immediate feedback
             const submitBtn = rsvpForm.querySelector('button[type="submit"]');
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.dataset.origText = submitBtn.textContent;
-                submitBtn.textContent = 'Sending... ⏳';
+                submitBtn.textContent = 'Sending...';
             }
 
-            // Simulate network/send delay so it "feels" real to the user
+            // Short delay to simulate processing, then show the single-line thank-you message
             setTimeout(() => {
-                // Hide form and show a friendly success message with submitted summary
                 rsvpForm.style.display = 'none';
-
                 if (formMessage) {
                     formMessage.classList.remove('hidden');
-                    formMessage.innerHTML = `\n                        <h3>Thanks, ${escapeHtml(name)}!</h3>\n                        <p>Your RSVP was recorded (demo mode). Here is what we received:</p>\n                        <ul>\n                            <li><strong>Attending:</strong> ${escapeHtml(attending || 'Not specified')}</li>\n                            <li><strong>Guests:</strong> ${escapeHtml(guests || '0')}</li>\n                            <li><strong>Email:</strong> ${escapeHtml(email)}</li>\n                        </ul>\n                        <p class=\"muted\">(This is a demo submission — no email was sent.)</p>\n                    `;
+                    // Show only the exact requested text
+                    formMessage.textContent = 'Thank you for your response';
                 }
 
-                // Optionally log to console for developer preview
-                console.info('RSVP (demo):', { name, email, guests, attending, message });
-
-                // Re-enable the button text if user navigates back
-                setTimeout(() => {
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = submitBtn.dataset.origText || 'Send RSVP';
-                    }
-                }, 1500);
-            }, 1200);
+                // Re-enable button text in case user navigates back
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = submitBtn.dataset.origText || 'Send RSVP';
+                }
+            }, 700);
         });
     }
 });

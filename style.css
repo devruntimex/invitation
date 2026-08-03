@@ -288,8 +288,8 @@ h6 {
 
 .hero .title {
     font-family: var(--font-calligraphy);
-    font-size: 8.5rem;
-    /* Increased size for calligraphy font */
+    font-size: clamp(2.8rem, 10vw, 8.5rem);
+    /* Responsive sizing for calligraphy font */
     margin-bottom: 10px;
     text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
     font-weight: 400;
@@ -498,197 +498,67 @@ h6 {
    ========================================= */
 .map-container {
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin-top: 40px;
 }
 
 /* =========================================
-   RSVP Section
-   ========================================= */
-.rsvp-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
+   Responsive improvements for hero background (mobile)
+   - Use a more focused background-position for portrait screens
+   - Disable fixed attachment on mobile (performance and compatibility)
+   - Scale down heading sizes and reduce hero height so important content remains visible
+*/
 
-.rsvp-content {
-    padding: 60px;
-    text-align: center;
-}
+@media (max-width: 900px) {
+    .hero {
+        background-position: center 30%;
+        background-attachment: scroll;
+        height: 80vh;
+        padding-top: 60px; /* keep some spacing for fixed navbar */
+    }
 
-.rsvp-form {
-    text-align: left;
-    margin-top: 40px;
-}
+    .hero-overlay {
+        background: linear-gradient(to bottom, rgba(123, 154, 204, 0.45) 0%, rgba(44, 62, 80, 0.85) 100%);
+    }
 
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--secondary-color);
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    transition: var(--transition);
-    background-color: #fcfcfc;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-}
-
-.radio-group {
-    display: flex;
-    gap: 20px;
-}
-
-.radio-label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: normal;
-}
-
-.radio-label input {
-    margin-right: 10px;
-    accent-color: var(--primary-color);
-}
-
-.form-message {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #d4edda;
-    color: #155724;
-    font-weight: 500;
-}
-
-.hidden {
-    display: none;
-}
-
-/* =========================================
-   Footer
-   ========================================= */
-.footer {
-    background-color: var(--secondary-color);
-    color: var(--text-light);
-    padding: 60px 0 30px;
-}
-
-.footer h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
-.footer p {
-    opacity: 0.8;
-    margin-bottom: 30px;
-}
-
-.copyright {
-    font-size: 0.9rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 20px;
-}
-
-/* =========================================
-   Animations
-   ========================================= */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* =========================================
-   Responsive Design
-   ========================================= */
-@media (max-width: 768px) {
     .hero .title {
-        font-size: 4rem;
+        font-size: clamp(2.8rem, 12vw, 5.5rem);
+        margin-bottom: 8px;
     }
 
+    .pre-title {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+
+    .date-location {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+    }
+
+    .scroll-indicator {
+        bottom: 20px;
+    }
+
+    /* Show mobile hamburger instead of full nav links */
     .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background-color: var(--bg-light);
-        flex-direction: column;
-        justify-content: center;
-        transition: var(--transition);
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links.active {
-        right: 0;
-    }
-
-    .nav-links li {
-        margin: 20px 0;
-    }
-
-    .nav-links a {
-        color: var(--secondary-color);
-        font-size: 1.2rem;
+        display: none;
     }
 
     .hamburger {
         display: block;
-        z-index: 1001;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        height: 75vh;
     }
 
-    .hamburger.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-        background-color: var(--secondary-color);
+    .hero .title {
+        font-size: clamp(2.2rem, 16vw, 4.2rem);
     }
 
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-        background-color: var(--secondary-color);
-    }
-
-    .rsvp-content {
-        padding: 30px 20px;
-    }
-
-    .radio-group {
-        flex-direction: column;
-        gap: 10px;
+    .pre-title {
+        font-size: 1rem;
     }
 }

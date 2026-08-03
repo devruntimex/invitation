@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const body = encodeURIComponent(bodyLines.join('\n'));
 
             // mailto target (requested)
-            const to = 'arjunn8943@gmail.com';
+            const to = 'ramdevnofficial@gmail.com';
             const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
 
             // Open the user's email client with the populated email
